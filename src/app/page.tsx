@@ -1,13 +1,5 @@
-"use client";
+import { redirect } from "next/navigation";
 
-import Dashboard from "./dashboard/page";
-
-const App = () => {
-  return (
-    <div>
-      <Dashboard />
-    </div>
-  );
-};
-
-export default App;
+export default function Home() {
+  redirect("/dashboard");
+}

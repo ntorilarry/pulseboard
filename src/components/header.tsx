@@ -1,6 +1,6 @@
 "use client";
 
-import { HiMiniBars4, HiMagnifyingGlass } from "react-icons/hi2";
+import { HiMiniBars4 } from "react-icons/hi2";
 import {
   Menu,
   MenuButton,
@@ -28,7 +28,7 @@ function classNames(...classes) {
 const Header = ({ setSidebarOpen }) => {
   return (
     <div>
-      <div className="sticky top-0 z-40 flex h-16 shrink-0 items-center border-b border-neutral-200 dark:border-neutral-700 gap-x-4 bg-white dark:bg-neutral-800 px-4 sm:gap-x-6 sm:px-6 lg:px-8">
+      <div className="sticky top-0 z-40 flex h-16 shrink-0 items-center border-b border-neutral-200 dark:border-neutral-700 gap-x-4 bg-white dark:bg-[#12131A] px-4 sm:gap-x-6 sm:px-6 lg:px-8">
         <button
           type="button"
           className="-m-2.5 p-2.5 text-neutral-700 dark:text-white lg:hidden"
@@ -44,34 +44,7 @@ const Header = ({ setSidebarOpen }) => {
           aria-hidden="true"
         />
 
-        <div className="flex flex-1 gap-x-4 self-stretch lg:gap-x-6">
-          {/* <SearchTable /> */}
-
-          <div className="flex-1 hidden max-w-xs m-auto sm:block">
-            <label htmlFor="" className="sr-only">
-              {" "}
-              Search{" "}
-            </label>
-            <div className="relative">
-              <div className="absolute inset-y-0 left-0 flex items-center pl-3 pointer-events-none">
-                <HiMagnifyingGlass
-                  className="w-5 h-5 text-neutral-400"
-                  aria-hidden="true"
-                />
-              </div>
-
-              <input
-                type="search"
-                name="search"
-                className="block w-full py-2 pl-10 border dark:text-neutral-300 dark:bg-neutral-800 border-neutral-300 dark:border-neutral-600 rounded-lg focus:ring-indigo-600 focus:border-indigo-600 sm:text-sm"
-                placeholder="Type to search"
-              />
-            </div>
-          </div>
-
-          {/* Separator */}
-
-          <div className="flex flex-1 justify-end items-center gap-x-4 lg:gap-x-6">
+        <div className="flex flex-1 justify-end items-center gap-x-4 lg:gap-x-6">
             {/* Separator */}
             <div
               className="h-6 w-px bg-neutral-900/10 dark:bg-white/10 lg:hidden"
@@ -139,11 +112,11 @@ const Header = ({ setSidebarOpen }) => {
                     </div>
                     {userNavigation.map((item) => (
                       <MenuItem key={item.name}>
-                        {({ active }) =>
+                        {({ focus }) =>
                           item.name === "Sign out" ? (
                             <button
                               className={classNames(
-                                active
+                                focus
                                   ? "bg-neutral-50 dark:bg-neutral-700"
                                   : "",
                                 "block w-full text-left px-3 py-1 text-sm leading-6 text-neutral-900 dark:text-white"
@@ -155,7 +128,7 @@ const Header = ({ setSidebarOpen }) => {
                             <Link
                               href={item.url}
                               className={classNames(
-                                active
+                                focus
                                   ? "bg-neutral-50 dark:bg-neutral-700"
                                   : "",
                                 "block px-3 py-1 text-sm leading-6 text-neutral-900 dark:text-white"
@@ -174,7 +147,7 @@ const Header = ({ setSidebarOpen }) => {
           </div>
         </div>
       </div>
-    </div>
+  
   );
 };
 
