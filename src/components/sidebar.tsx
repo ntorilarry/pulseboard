@@ -148,12 +148,21 @@ const Sidebar = ({
 
       {/* ===== Desktop Sidebar ===== */}
       <div
-        className={`hidden lg:fixed lg:inset-y-0 lg:z-30 lg:flex lg:flex-col transition-all duration-300 ${
+        className={`hidden lg:fixed lg:inset-y-0 lg:z-30 lg:flex lg:flex-col transition-all duration-300 group ${
           isCollapsed ? "lg:w-20" : "lg:w-[250px]"
         }`}
       >
-        <div className="flex grow flex-col overflow-y-auto bg-white border border-r border-neutral-200 dark:border-neutral-700 dark:bg-[#12131A] px-3 lg:px-6 pb-4">
-          <div className="flex items-center justify-between pt-6 shrink-0 relative">
+        <div 
+          className={`flex grow flex-col overflow-y-auto bg-white border border-r border-neutral-200 dark:border-neutral-700 dark:bg-[#12131A] px-3 lg:px-6 pb-4 ${
+            isCollapsed ? "cursor-pointer" : ""
+          }`}
+          onClick={(e) => {
+            if (isCollapsed && setIsCollapsed && (e.target as HTMLElement).closest('a, button') === null) {
+              setIsCollapsed(false);
+            }
+          }}
+        >
+          <div className="flex items-center justify-between pt-6 shrink-0 relative group/logo">
             {!isCollapsed && (
               <Link href="/dashboard" className="flex gap-x-2 items-center">
                 <Image
@@ -166,23 +175,32 @@ const Sidebar = ({
               </Link>
             )}
             {isCollapsed && (
-              <Link href="/dashboard" className="flex gap-x-2 items-center justify-center w-full">
-                <Image
-                  className="w-10 h-10"
-                  src={Monogram}
-                  alt="logo"
-                  width={40}
-                  height={40}
-                />
-              </Link>
+              <div className="flex gap-x-2 items-center justify-center w-full cursor-pointer">
+                <Link href="/dashboard" className="flex gap-x-2 items-center justify-center w-full">
+                  <Image
+                    className="w-10 h-10"
+                    src={Monogram}
+                    alt="logo"
+                    width={40}
+                    height={40}
+                  />
+                </Link>
+              </div>
             )}
             {setIsCollapsed && (
               <button
-                onClick={() => setIsCollapsed(!isCollapsed)}
-                className="absolute -right-3 top-6    hover:bg-neutral-50 dark:hover:bg-neutral-700 transition-colors z-10"
+                onClick={(e) => {
+                  e.stopPropagation();
+                  setIsCollapsed(!isCollapsed);
+                }}
+                className={`absolute -right-3 top-6 hover:bg-neutral-50 dark:hover:bg-neutral-700 transition-all z-10 rounded-full p-1 bg-white dark:bg-[#12131A] border border-neutral-200 dark:border-neutral-700 shadow-md ${
+                  isCollapsed
+                    ? "opacity-0 group-hover:opacity-100 pointer-events-none group-hover:pointer-events-auto"
+                    : "opacity-100"
+                }`}
                 aria-label={isCollapsed ? "Expand sidebar" : "Collapse sidebar"}
               >
-                <LuChevronsRightLeft className="w-6 h-6 text-neutral-600 dark:text-neutral-300" />
+                <LuChevronsRightLeft className="w-5 h-5 text-neutral-600 dark:text-neutral-300" />
               </button>
             )}
           </div>
